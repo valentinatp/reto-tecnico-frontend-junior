@@ -9,27 +9,55 @@
 </head>
 <body>
     <!-- Navbar -->
-     <nav>
-        <a href="#">Home</a>
-        <a href="#">Tabla de datos</a>
-        <a href="#">Graficos Kpi</a>
-     </nav>
-    <!-- Upload file -->
-    <form action="">
-        <input id="fileInput" type="file" name="fileInput"/>
-    </form>
-    <!-- Filter -->
-     <form action="">
+    <nav>
+    <a href="#">Home</a>
+    <a href="#">Tabla de datos</a>
+    <a href="#">Graficos Kpi</a>
+    </nav>
+    <main class="container">
+        <!-- Upload file -->
+        <form action="">
+            <input id="fileInput" type="file" name="fileInput"/>
+        </form>
+        <!-- Filter -->
+        <form action="">
         <input type="text" placeholder="ingresa el filtro" accept=".xlsx, .xls">
         <button class="btn btn-primary" type="button">Filtrar</button>
-     </form>
-    <!-- Table -->
-    <div id="containerTableData" class="table"></div>
-    <!-- Paginator -->
+        </form>
+        <!-- Table -->
+        <div id="containerTableData" class="table"></div>
+        <div class="table-responsive ">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre Empresa</th>
+                        <th scope="col">Nombre Área</th>
+                        <th scope="col">RUT Trabajador</th>
+                        <th scope="col">Nombre Trabajador</th>
+                        <th scope="col">Edad</th>
+                        <th scope="col">Profesión</th>
+                        <th scope="col">Cargo</th>
+                        <th scope="col">Sueldo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Resimple</td>
+                        <td>Tecnologia</td>
+                        <td>19342925-4</td>
+                        <td>Valentina Toledo</td>
+                        <td>29</td>
+                        <td>Analista programadora</td>
+                        <td>Desarrolladora Frontend JR.</td>
+                        <td>$800.000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Paginator -->
 
-    <!-- Graphics -->
-
-    
+        <!-- Graphics -->
+    </main>
     <!-- Footer -->
     <footer>
         <p>Desarrollado por Valentina Toledo</p>
