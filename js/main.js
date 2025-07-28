@@ -20,6 +20,7 @@ document.getElementById('fileInput').addEventListener('change', (e) => {
         //Envio los datos por parametro a la funcion para crear la tabla
         //showDataTable(data);
         showAllDataTable(data);
+        createPaginator();
         //filterDataTable(listData);
         console.log(data)
     }
@@ -64,6 +65,10 @@ function showAllDataTable(data) {
 //Muestra los datos paginados
 
 //Crear logica de paginador para mostrar los datos en la tabla
+function createPaginator() {
+    const elContainerPaginator = document.getElementById('containerPaginator');
+}
+
 function previousPage() {
     alert('Click en el boton previo');
 }
