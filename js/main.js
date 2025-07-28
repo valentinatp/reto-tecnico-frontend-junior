@@ -26,7 +26,7 @@ document.getElementById('fileInput').addEventListener('change', (e) => {
     }
     readerFile.readAsBinaryString(dataDocXlsx);
 })
-//Muestro tabla con los datos del XLSX
+//Muestro tabla con todos los datos del XLSX
 function showAllDataTable(data) {
     //Llamo al elemento del contenedor de la tabla
     const elContentTable = document.getElementById('containerTableData');
@@ -62,39 +62,42 @@ function showAllDataTable(data) {
     elContentTable.appendChild(createTableHtml);
 }
 
-//Paginador desde la web
+//Paginador obtenido desde la web
 //Variables globales
 let data = [];
 let currentPage = 1;
 const rowsPerPage = 10;
 
+//Funcion para calcular las paginas y la cantidad de elementos
 function displayPage(data, page, rowsPerPage) {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
     return data.slice(start, end);
 }
 
+//Funcion para mostrar los elementos listados por paginador
 function showDataTable() {
+    //Campturamos los elementos
     const tableHead = document.getElementById("table-head");
     const tableBody = document.getElementById("table-body");
-
+    //Validamos la existencia de los datos
     if (data.length === 0) {
-    tableHead.innerHTML = "<tr><th>No hay datos</th></tr>";
-    tableBody.innerHTML = "";
-    return;
+        tableHead.innerHTML = "<tr><th>No hay datos</th></tr>";
+        tableBody.innerHTML = "";
+        return;
     }
-
+    //Imprimo las cabeceras de la tabla
     const headers = Object.keys(data[0]);
     tableHead.innerHTML = "<tr>" + headers.map(h => `<th class="table__header">${h}</th>`).join("") + "</tr>";
-
+    //Le envio los datos x parametro a la funcion 'displayPage'
     const paginatedData = displayPage(data, currentPage, rowsPerPage);
+    //Recorremos el arreglo con los elementos
     tableBody.innerHTML = paginatedData.map(row => {
-    return "<tr>" + headers.map(h => `<td>${row[h] ?? ''}</td>`).join("") + "</tr>";
+        return "<tr>" + headers.map(h => `<td>${row[h] ?? ''}</td>`).join("") + "</tr>";
     }).join("");
-
+    //Se imprime el numero de pagina
     document.getElementById("page-number").textContent = `${currentPage}`;
 }
-
 //Muestra los datos paginados
 //Crear logica de paginador para mostrar los datos en la tabla
 function createPaginator(data) {
@@ -102,12 +105,14 @@ function createPaginator(data) {
     const jsonData = Array.from(data);
     console.log(jsonData)
 }
+//Funcion para retroceder en el paginador
  function prevPage() {
     if (currentPage > 1) {
     currentPage--;
     showDataTable();
     }
 }
+//Funcion para avanzar en el paginador
 function nextPage() {
     if (currentPage * rowsPerPage < data.length) {
     currentPage++;
