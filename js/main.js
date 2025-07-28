@@ -1,5 +1,4 @@
 //Transformar archivo XLSX
-//Campturo el documento del input a traves del ID
 document.getElementById('fileInput').addEventListener('change', (e) => {
     //Selecciono el archivo XLSX
     const dataDocXlsx = e.target.files[0];
@@ -19,17 +18,18 @@ document.getElementById('fileInput').addEventListener('change', (e) => {
         //Convierto el documento en Json
         const data = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
         //Envio los datos por parametro a la funcion para crear la tabla
-        showDataTable(data);
+        //showDataTable(data);
+        showAllDataTable(data);
+        //filterDataTable(listData);
+        console.log(data)
     }
     readerFile.readAsBinaryString(dataDocXlsx);
 })
-
-
-function showDataTable(data) {
+//Muestro tabla con los datos del XLSX
+function showAllDataTable(data) {
     //Llamo al elemento del contenedor de la tabla
     const elContentTable = document.getElementById('containerTableData');
     elContentTable.innerHTML = '';
-
     //Valido si los datos existen
     if (data.length === 0) {
         elContentTable.textContent = 'No existenten datos';
@@ -37,8 +37,7 @@ function showDataTable(data) {
     }
     //Creo la tabla
     const createTableHtml = document.createElement('table');
-    createTableHtml.border = '1';
-    createTableHtml.setAttribute('class', 'table')
+    createTableHtml.setAttribute('class', 'table table__container')
     //Creo los encabezados de la tabla
     const headersTable = Object.keys(data[0]);
     const rowHeadersTable = createTableHtml.insertRow();
@@ -46,22 +45,36 @@ function showDataTable(data) {
         const cellTable = rowHeadersTable.insertCell();
         cellTable.textContent = headerElement;
         cellTable.style.fontWeight = 'bold';
+        cellTable.setAttribute('class', 'table__header');
     })
     //Creo las filas de la tabla
     data.forEach((rowTable) => {
         const rowTableBody = createTableHtml.insertRow();
-        headersTable.forEach((clave) => {
+        headersTable.forEach((keys) => {
             const cellTable = rowTableBody.insertCell();
-            cellTable.textContent = rowTable[clave];
+            cellTable.textContent = rowTable[keys];
+            cellTable.setAttribute('class', 'table__row');
+
         })
     })
     //Inserto la tabla en el contenedor
     elContentTable.appendChild(createTableHtml);
 }
-//Crear logica de paginador para mostrar los datos en la tabla
 
+//Muestra los datos paginados
+
+//Crear logica de paginador para mostrar los datos en la tabla
+function previousPage() {
+    alert('Click en el boton previo');
+}
+
+function nextPage() {
+    alert('Click en el boton next');
+}
 
 //Crear logica para filtro de datos en tabla
+
+
 //Crear boton para descargar los datos de la tabla en formato XLSX
 //Crear calculo de KPIs
 //Mostrar resultados de los KPIs en graficos
