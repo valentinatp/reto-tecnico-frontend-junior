@@ -16,7 +16,7 @@ document.getElementById('fileInput').addEventListener('change', (e) => {
         //Accedo a la hoja
         const worksheet = workbook.Sheets[nameWorksheet]
         //Convierto el documento en Json
-        const data = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
+        const data = XLSX.utils.sheet_to_json(worksheet, { defval: 'N/A' });
         //Envio los datos por parametro a la funcion para crear la tabla
         //showDataTable(data);
         showAllDataTable(data);

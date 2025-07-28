@@ -16,7 +16,7 @@ body { height: 100vh; }
 .table__container { border: 1px solid #68d981;  }
 .table__container th.table__header, .table__container td.table__header { background-color: #BABBBC; padding: 0.5rem; }
 .table__container .table__row { padding: 0.5rem; }
-.table-responsive { overflow: scroll scroll hidden; height: 250px; border: 1px solid #68d981; }
+.table-responsive { overflow: scroll scroll hidden; max-height: 250px; border: 1px solid #68d981; }
 /*Paginator*/
 .container__paginator { display: flex; width: 100%; height: 40px; align-items: center; font-size: 16px; justify-content: end; margin-top: 0.2rem; }
 .container__paginator-btn { width: 35px; height: 35px; border-radius: 50%; border: 2px solid #68d981; display: flex; justify-content: center; align-items: center;  }
