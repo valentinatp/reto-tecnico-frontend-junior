@@ -18,15 +18,49 @@ document.getElementById('fileInput').addEventListener('change', (e) => {
         const worksheet = workbook.Sheets[nameWorksheet]
         //Convierto el documento en Json
         const data = XLSX.utils.sheet_to_json(worksheet, { defval: '' });
-        //Muestro los datos por consola
-        console.log(data);
+        //Envio los datos por parametro a la funcion para crear la tabla
+        showDataTable(data);
     }
     readerFile.readAsBinaryString(dataDocXlsx);
 })
 
-//Capturar los datos en formato Json
 
+function showDataTable(data) {
+    //Llamo al elemento del contenedor de la tabla
+    const elContentTable = document.getElementById('containerTableData');
+    elContentTable.innerHTML = '';
+
+    //Valido si los datos existen
+    if (data.length === 0) {
+        elContentTable.textContent = 'No existenten datos';
+        return;
+    }
+    //Creo la tabla
+    const createTableHtml = document.createElement('table');
+    createTableHtml.border = '1';
+    createTableHtml.setAttribute('class', 'table')
+    //Creo los encabezados de la tabla
+    const headersTable = Object.keys(data[0]);
+    const rowHeadersTable = createTableHtml.insertRow();
+    headersTable.forEach((headerElement) => {
+        const cellTable = rowHeadersTable.insertCell();
+        cellTable.textContent = headerElement;
+        cellTable.style.fontWeight = 'bold';
+    })
+    //Creo las filas de la tabla
+    data.forEach((rowTable) => {
+        const rowTableBody = createTableHtml.insertRow();
+        headersTable.forEach((clave) => {
+            const cellTable = rowTableBody.insertCell();
+            cellTable.textContent = rowTable[clave];
+        })
+    })
+    //Inserto la tabla en el contenedor
+    elContentTable.appendChild(createTableHtml);
+}
 //Crear logica de paginador para mostrar los datos en la tabla
+
+
 //Crear logica para filtro de datos en tabla
 //Crear boton para descargar los datos de la tabla en formato XLSX
 //Crear calculo de KPIs
