@@ -16,13 +16,13 @@ document.getElementById('fileInput').addEventListener('change', (e) => {
         //Accedo a la hoja
         const worksheet = workbook.Sheets[nameWorksheet]
         //Convierto el documento en Json
-        const data = XLSX.utils.sheet_to_json(worksheet, { defval: 'N/A' });
+        const dataResponse = XLSX.utils.sheet_to_json(worksheet, { defval: 'N/A' });
         //Envio los datos por parametro a la funcion para crear la tabla
         //showDataTable(data);
-        showAllDataTable(data);
-        createPaginator();
-        //filterDataTable(listData);
-        console.log(data)
+        const jsonData = Array.from(dataResponse);
+        //showAllDataTable(jsonData);
+        data = jsonData
+        showDataTable();
     }
     readerFile.readAsBinaryString(dataDocXlsx);
 })
@@ -62,24 +62,68 @@ function showAllDataTable(data) {
     elContentTable.appendChild(createTableHtml);
 }
 
+//Paginador desde la web
+//Variables globales
+let data = [];
+let currentPage = 1;
+const rowsPerPage = 10;
+
+function displayPage(data, page, rowsPerPage) {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+    return data.slice(start, end);
+}
+
+function showDataTable() {
+    const tableHead = document.getElementById("table-head");
+    const tableBody = document.getElementById("table-body");
+
+    if (data.length === 0) {
+    tableHead.innerHTML = "<tr><th>No hay datos</th></tr>";
+    tableBody.innerHTML = "";
+    return;
+    }
+
+    const headers = Object.keys(data[0]);
+    tableHead.innerHTML = "<tr>" + headers.map(h => `<th class="table__header">${h}</th>`).join("") + "</tr>";
+
+    const paginatedData = displayPage(data, currentPage, rowsPerPage);
+    tableBody.innerHTML = paginatedData.map(row => {
+    return "<tr>" + headers.map(h => `<td>${row[h] ?? ''}</td>`).join("") + "</tr>";
+    }).join("");
+
+    document.getElementById("page-number").textContent = `${currentPage}`;
+}
+
 //Muestra los datos paginados
-
 //Crear logica de paginador para mostrar los datos en la tabla
-function createPaginator() {
-    const elContainerPaginator = document.getElementById('containerPaginator');
+function createPaginator(data) {
+    //Convierto los datos en una hoja
+    const jsonData = Array.from(data);
+    console.log(jsonData)
 }
-
-function previousPage() {
-    alert('Click en el boton previo');
+ function prevPage() {
+    if (currentPage > 1) {
+    currentPage--;
+    showDataTable();
+    }
 }
-
 function nextPage() {
-    alert('Click en el boton next');
+    if (currentPage * rowsPerPage < data.length) {
+    currentPage++;
+    showDataTable();
+    }
+}
+
+//Exportacion segun libreria
+function exportCurrentPage() {
+    const paginatedData = displayPage(data, currentPage, rowsPerPage);
+    const worksheet = XLSX.utils.json_to_sheet(paginatedData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Página_" + currentPage);
+    XLSX.writeFile(workbook, "pagina_" + currentPage + ".xlsx");
 }
 
 //Crear logica para filtro de datos en tabla
-
-
-//Crear boton para descargar los datos de la tabla en formato XLSX
 //Crear calculo de KPIs
 //Mostrar resultados de los KPIs en graficos

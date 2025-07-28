@@ -42,28 +42,8 @@
                 <section>
                     <div id="containerTableData" class="table-responsive">
                         <table class="table__container">
-                            <thead>
-                                <tr>
-                                    <th class="table__header" scope="col">Nombre Empresa</th>
-                                    <th class="table__header" scope="col">Nombre Área</th>
-                                    <th class="table__header" scope="col">RUT Trabajador</th>
-                                    <th class="table__header" scope="col">Edad</th>
-                                    <th class="table__header" scope="col">Profesión</th>
-                                    <th class="table__header" scope="col">Cargo</th>
-                                    <th class="table__header" scope="col">Sueldo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Resimple</td>
-                                    <td>Tecnologia</td>
-                                    <td>19342925-4</td>
-                                    <td>29</td>
-                                    <td>Analista programadora</td>
-                                    <td>Desarrolladora Frontend JR.</td>
-                                    <td>$800.000</td>
-                                </tr>
-                            </tbody>
+                            <thead id="table-head"></thead>
+                            <tbody id="table-body"></tbody>
                         </table>
                     </div>
                 </section>
@@ -73,10 +53,10 @@
         <div class="row">
             <div class="col">
                 <div id="containerPaginator" class="container__paginator">
-                    <div class="container__paginator-btn"><a href="#"><i class="fa-solid fa-chevron-left"></i></a></div>
-                    <div class="container__paginator-pages"><a href="#">1</a></div>
-                    <div class="container__paginator-btn"><a href="#"><i class="fa-solid fa-chevron-right"></i></a></div>
-                    <div class="container__paginator-btn"><a href="#"><i class="fa-solid fa-file-arrow-down"></i></a></div>
+                    <div class="container__paginator-btn"><a href="#" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i></a></div>
+                    <div class="container__paginator-pages"><a href="#" id="page-number">1</a></div>
+                    <div class="container__paginator-btn"><a href="#" onclick="nextPage()"><i class="fa-solid fa-chevron-right"></i></a></div>
+                    <div class="container__paginator-btn"><a href="#" onclick="exportCurrentPage()"><i class="fa-solid fa-file-arrow-down"></i></a></div>
                 </div>
             </div>
         </div>
